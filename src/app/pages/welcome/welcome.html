@@ -8,7 +8,7 @@
         <p class="welcome-subtitle">{{ appDescription }}</p>
       </div>
     </header>
-    
+
     <!-- Contenido Principal -->
     <main class="welcome-content">
       <!-- Sección de Bienvenida -->
@@ -20,7 +20,7 @@
           Crea tu cuenta bancaria de forma simple y segura. Estamos aquí para ayudarte en cada paso del proceso.
         </p>
       </section>
-      
+
       <!-- Sección de Usuarios Objetivo -->
       <section class="welcome-target-users" aria-labelledby="target-users-heading">
         <h3 id="target-users-heading" class="target-users-heading">
@@ -33,15 +33,15 @@
           </li>
         </ul>
       </section>
-      
+
       <!-- Sección de Acciones -->
       <section class="welcome-actions" aria-labelledby="actions-heading">
         <h3 id="actions-heading" class="sr-only">Acciones disponibles</h3>
-        
+
         <div class="welcome-buttons">
           <!-- Botón Principal: Crear Cuenta -->
-          <a 
-            routerLink="/registro" 
+          <a
+            routerLink="/registro"
             class="btn btn--primary btn--large btn--full-width touch-target"
             role="button"
             aria-describedby="create-account-description"
@@ -51,10 +51,10 @@
           <p id="create-account-description" class="button-description">
             Inicia el proceso de registro paso a paso
           </p>
-          
+
           <!-- Botón Secundario: Modo Asistido -->
-          <a 
-            routerLink="/registro/modo-asistido" 
+          <a
+            routerLink="/registro/modo-asistido"
             class="btn btn--secondary btn--large btn--full-width touch-target"
             role="button"
             aria-describedby="assisted-mode-description"
@@ -64,9 +64,22 @@
           <p id="assisted-mode-description" class="button-description">
             Obtén ayuda adicional durante el proceso
           </p>
+
+          <!-- Botón de Educación Financiera -->
+          <a
+            routerLink="/educacion"
+            class="btn btn--tertiary btn--large btn--full-width touch-target"
+            role="button"
+            aria-describedby="education-description"
+          >
+            <span>📚 Aprende Finanzas</span>
+          </a>
+          <p id="education-description" class="button-description">
+            Accede a lecciones gratuitas sobre finanzas personales
+          </p>
         </div>
       </section>
-      
+
       <!-- Sección de Características -->
       <section class="welcome-features" aria-labelledby="features-heading">
         <h3 id="features-heading" class="features-heading">
@@ -80,7 +93,7 @@
               Tus datos están protegidos con la más alta seguridad
             </p>
           </div>
-          
+
           <div class="feature-item">
             <div class="feature-icon" aria-hidden="true">📱</div>
             <h4 class="feature-title">Fácil de Usar</h4>
@@ -88,7 +101,7 @@
               Diseñado para ser simple y accesible para todos
             </p>
           </div>
-          
+
           <div class="feature-item">
             <div class="feature-icon" aria-hidden="true">🤝</div>
             <h4 class="feature-title">Soporte Personalizado</h4>
