@@ -180,6 +180,22 @@
         }
       }
       
+      &--tertiary {
+        background: var(--color-azul-cielo);
+        color: var(--color-text-white);
+        
+        &:hover {
+          background: var(--color-azul-marino);
+          transform: translateY(-2px);
+          box-shadow: var(--shadow-md);
+        }
+        
+        &:focus-visible {
+          outline: 2px solid var(--color-azul-cielo);
+          outline-offset: 2px;
+        }
+      }
+      
       &--large {
         padding: var(--spacing-lg) var(--spacing-xl);
         font-size: 1.125rem;

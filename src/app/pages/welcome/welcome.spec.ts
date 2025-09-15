@@ -162,6 +162,37 @@ describe('WelcomeComponent - HU-008: Acceso al Módulo de Educación', () => {
             expect(assistedModeDescription).toBeTruthy();
             expect(assistedModeDescription.nativeElement.textContent.trim()).toBe('Obtén ayuda adicional durante el proceso');
         });
+
+        // HU-008: Acceso al Módulo de Educación
+        it('debería tener un botón para acceder al módulo de educación financiera', () => {
+            const educationButton: DebugElement = fixture.debugElement.query(By.css('a[routerLink="/educacion"]'));
+            expect(educationButton).toBeTruthy();
+            expect(educationButton.nativeElement.textContent.trim()).toBe('Educación Financiera');
+        });
+
+        it('debería tener descripción para el botón de educación financiera', () => {
+            const educationDescription: DebugElement = fixture.debugElement.query(By.css('#education-description'));
+            
+            expect(educationDescription).toBeTruthy();
+            expect(educationDescription.nativeElement.textContent.trim()).toBe('Aprende sobre finanzas personales de forma simple');
+        });
+
+        it('debería tener las clases CSS correctas en el botón de educación', () => {
+            const educationButton: DebugElement = fixture.debugElement.query(By.css('a[routerLink="/educacion"]'));
+            
+            expect(educationButton.nativeElement.classList.contains('btn')).toBe(true);
+            expect(educationButton.nativeElement.classList.contains('btn--tertiary')).toBe(true);
+            expect(educationButton.nativeElement.classList.contains('btn--large')).toBe(true);
+            expect(educationButton.nativeElement.classList.contains('btn--full-width')).toBe(true);
+            expect(educationButton.nativeElement.classList.contains('touch-target')).toBe(true);
+        });
+
+        it('debería tener atributos de accesibilidad en el botón de educación', () => {
+            const educationButton: DebugElement = fixture.debugElement.query(By.css('a[routerLink="/educacion"]'));
+            
+            expect(educationButton.nativeElement.getAttribute('role')).toBe('button');
+            expect(educationButton.nativeElement.getAttribute('aria-describedby')).toBe('education-description');
+        });
     });
 
     // Pruebas de accesibilidad (WCAG 2.1)
@@ -208,7 +239,7 @@ describe('WelcomeComponent - HU-008: Acceso al Módulo de Educación', () => {
 
         it('debería tener atributos role en los botones', () => {
             const buttons: DebugElement[] = fixture.debugElement.queryAll(By.css('a[role="button"]'));
-            expect(buttons.length).toBe(2);
+            expect(buttons.length).toBe(3);
         });
     });
 
@@ -242,7 +273,7 @@ describe('WelcomeComponent - HU-008: Acceso al Módulo de Educación', () => {
 
         it('debería tener la estructura correcta de botones', () => {
             const buttons: DebugElement[] = fixture.debugElement.queryAll(By.css('.welcome-buttons .btn'));
-            expect(buttons.length).toBe(2);
+            expect(buttons.length).toBe(3);
             
             buttons.forEach(button => {
                 expect(button.nativeElement.classList.contains('btn--large')).toBe(true);
