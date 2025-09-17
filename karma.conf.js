@@ -1,13 +1,10 @@
-const { executablePath } = require('puppeteer');
-process.env.CHROME_BIN = executablePath();
-
 module.exports = function (config) {
   config.set({
     basePath: '',
     frameworks: ['jasmine', '@angular-devkit/build-angular'],
     plugins: [
       require('karma-jasmine'),
-      require('karma-chrome-launcher'),       // <- IMPORTANTE
+      require('karma-chrome-launcher'),
       require('karma-junit-reporter'),
       require('karma-coverage'),
       require('@angular-devkit/build-angular/plugins/karma')
@@ -22,15 +19,16 @@ module.exports = function (config) {
       dir: 'coverage',
       reporters: [{ type: 'lcov', subdir: '.' }, { type: 'text-summary' }]
     },
-    browsers: ['ChromeHeadlessCI'],
     customLaunchers: {
-      ChromeHeadlessCI: {
-        base: 'ChromeHeadless',
+      ChromeHeadless: {
+        base: 'Chrome',
         flags: [
+          '--headless',
+          '--disable-gpu',
           '--no-sandbox',
           '--disable-setuid-sandbox',
-          '--disable-gpu',
-          '--disable-dev-shm-usage'
+          '--disable-dev-shm-usage',
+          '--remote-debugging-port=9222'
         ]
       }
     },
