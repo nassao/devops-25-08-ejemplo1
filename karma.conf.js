@@ -19,7 +19,6 @@ module.exports = function (config) {
       dir: 'coverage',
       reporters: [{ type: 'lcov', subdir: '.' }, { type: 'text-summary' }]
     },
-    browsers: ['ChromeHeadlessCI', 'ChromeHeadless'],
     customLaunchers: {
       ChromeHeadlessCI: {
         base: 'ChromeHeadless',
