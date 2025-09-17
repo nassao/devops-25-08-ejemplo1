@@ -1,0 +1,97 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Plantilla de CloudFormation para desplegar una aplicación web en ECS con Fargate.
+
+Parameters:
+  ContainerImage:
+    Type: String
+    Description: URI completa de la imagen de Docker para el contenedor.
+
+Resources:
+  # Repositorio ECR para almacenar la imagen de Docker
+  ECRRepository:
+    Type: AWS::ECR::Repository
+    Properties:
+      RepositoryName: my-ecr-repo
+      RepositoryPolicyText:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: AllowPull
+            Effect: Allow
+            Principal:
+              Service:
+                - ecs-tasks.amazonaws.com
+            Action:
+              - ecr:GetDownloadUrlForLayer
+              - ecr:BatchGetImage
+              - ecr:BatchCheckLayerAvailability
+      ImageScanningConfiguration:
+        ScanOnPush: true
+
+  # Clúster de ECS
+  ECSCluster:
+    Type: AWS::ECS::Cluster
+    Properties:
+      ClusterName: devops-25-08-cluster
+
+  # Grupo de Seguridad para permitir tráfico HTTP
+  ECSSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Grupo de seguridad para el servicio de ECS que permite tráfico HTTP en el puerto 80.
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+      VpcId: 'tu-vpc-id' # Reemplazar con el ID de tu VPC.
+
+  # Definición de la Tarea de Fargate
+  TaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      Family: devops-25-08-task
+      Cpu: '1024'
+      Memory: '2048'
+      NetworkMode: awsvpc
+      RequiresCompatibilities:
+        - FARGATE
+      ExecutionRoleArn: 'arn:aws:iam::tu-ID-de-cuenta:role/ecsTaskExecutionRole' # Reemplazar con el ARN de tu Execution Role.
+      ContainerDefinitions:
+        - Name: bohio-app
+          Image: !Ref ContainerImage
+          PortMappings:
+            - ContainerPort: 80
+              HostPort: 80
+              Protocol: tcp
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group: /ecs/devops-25-08-task
+              awslogs-region: us-east-2
+              awslogs-stream-prefix: ecs
+
+  # Servicio de ECS para ejecutar la tarea
+  ECSService:
+    Type: AWS::ECS::Service
+    Properties:
+      Cluster: !Ref ECSCluster
+      ServiceName: devops-25-08-task-service-1kx7i383
+      TaskDefinition: !Ref TaskDefinition
+      LaunchType: FARGATE
+      DesiredCount: 1
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          AssignPublicIp: ENABLED
+          SecurityGroups:
+            - !Ref ECSSecurityGroup
+          Subnets:
+            - 'tu-subnet-id-1' # Reemplazar con tus IDs de subred.
+            - 'tu-subnet-id-2' # Reemplazar con tus IDs de subred.
+
+Outputs:
+  ServiceURL:
+    Description: La URL pública del servicio de ECS.
+    Value: !Join
+      - ''
+      - - 'http://'
+        - !GetAtt ECSService.DNSName
