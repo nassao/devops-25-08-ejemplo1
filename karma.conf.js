@@ -20,13 +20,15 @@ module.exports = function (config) {
       reporters: [{ type: 'lcov', subdir: '.' }, { type: 'text-summary' }]
     },
     customLaunchers: {
-      ChromeHeadlessCI: {
-        base: 'ChromeHeadless',
+      ChromeHeadless: {
+        base: 'Chrome',
         flags: [
+          '--headless',
+          '--disable-gpu',
           '--no-sandbox',
           '--disable-setuid-sandbox',
-          '--disable-gpu',
-          '--disable-dev-shm-usage'
+          '--disable-dev-shm-usage',
+          '--remote-debugging-port=9222'
         ]
       }
     },
