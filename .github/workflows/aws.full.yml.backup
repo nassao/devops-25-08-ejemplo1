@@ -10,9 +10,9 @@ env:
   ECS_SERVICE: devops-25-08-task-service-1kx7i383   # set this to your Amazon ECS service name
   ECS_CLUSTER: devops-25-08-cluster                 # set this to your Amazon ECS cluster name
   ECS_TASK_DEFINITION: aws/task-definition.json     # set this to the path to your Amazon ECS task definition
-                                                    # file, e.g. .aws/task-definition.json
+  # file, e.g. .aws/task-definition.json
   CONTAINER_NAME: bohio-app                         # set this to the name of the container in the
-                                                    # containerDefinitions section of your task definition
+  # containerDefinitions section of your task definition
 
 permissions:
   contents: read
