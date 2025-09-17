@@ -1,18 +1,3 @@
-// Ensure Karma uses Puppeteer's Chromium when CHROME_BIN isn't provided by the environment
-try {
-  if (!process.env.CHROME_BIN) {
-    // Lazy require puppeteer to avoid throwing if not installed
-    const puppeteer = require('puppeteer');
-    const chromePath = puppeteer.executablePath();
-    if (chromePath && typeof chromePath === 'string') {
-      process.env.CHROME_BIN = chromePath;
-      // console.log(`[karma] Using Puppeteer Chromium at: ${chromePath}`);
-    }
-  }
-} catch (e) {
-  // If puppeteer is not available, leave CHROME_BIN as-is and let Karma report the error.
-}
-
 module.exports = function (config) {
   config.set({
     basePath: '',
