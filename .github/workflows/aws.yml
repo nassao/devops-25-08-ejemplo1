@@ -40,9 +40,25 @@ jobs:
           CI: true
         run: npm run ci:test
 
+  sonarqube:
+    name: SonarQube Scan
+    needs: [test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # SonarQube needs the full history to assign issues correctly
+          fetch-depth: 0
+      - name: SonarQube Scan and Quality Gate
+        uses: sonarsource/sonarqube-scan-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+
   deploy:
     name: Deploy
-    needs: [test]
+    needs: [sonarqube]
     runs-on: ubuntu-latest
     environment: production
 
