@@ -1,5 +1,5 @@
 # Stage 1: Build the Angular application
-FROM node:22.16.0 as build
+FROM node:24.8.0 AS build
 
 WORKDIR /app
 
@@ -17,7 +17,7 @@ RUN npm run build -- --configuration production
 FROM nginx:alpine
 
 # Copy the build output from the build stage
-COPY --from=build /app/dist/devops-25-08-ejemplo1/browser /usr/share/nginx/html
+COPY --from=build /app/dist/bohio-app/browser /usr/share/nginx/html
 
 # Copy the custom Nginx configuration
 COPY nginx.conf /etc/nginx/conf.d/default.conf
